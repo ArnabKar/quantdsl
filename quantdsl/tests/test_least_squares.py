@@ -1,6 +1,7 @@
 import unittest
 
 import scipy
+import numpy as np
 
 from quantdsl.semantics import LeastSquares
 
@@ -11,7 +12,7 @@ class TestLeastSquares(unittest.TestCase):
 
     def assertFit(self, fixture_x, fixture_y, expected_values):
         assert expected_values is not None
-        ls = LeastSquares(scipy.array(fixture_x), scipy.array(fixture_y))
+        ls = LeastSquares(np.array(fixture_x), np.array(fixture_y))
         fit_data = ls.fit()
         for i, expected_value in enumerate(expected_values):
             fit_value = round(fit_data[i], self.DECIMALS)

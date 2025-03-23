@@ -52,8 +52,8 @@ class TestSimulateBlackScholesPriceProcess(unittest.TestCase):
         ))
         prices = [(p[0], p[1], p[2], p[3].mean()) for p in prices]  # For scipy.
         self.assertEqual(prices, [
-            ('#1', datetime.datetime(2011, 1, 1), datetime.datetime(2011, 1, 1), scipy.array([10., 10.]).mean()),
-            ('#1', datetime.datetime(2011, 1, 2), datetime.datetime(2011, 1, 2), scipy.array([10., 10.]).mean()),
+            ('#1', datetime.datetime(2011, 1, 1), datetime.datetime(2011, 1, 1), np.array([10., 10.]).mean()),
+            ('#1', datetime.datetime(2011, 1, 2), datetime.datetime(2011, 1, 2), np.array([10., 10.]).mean()),
         ])
 
     def test_simulate_future_prices_one_market_high_volatility(self):
@@ -105,10 +105,10 @@ class TestSimulateBlackScholesPriceProcess(unittest.TestCase):
         ))
         prices = [(p[0], p[1], p[2], p[3].mean()) for p in prices]  # For scipy.
         self.assertEqual(prices, [
-            ('#1', datetime.datetime(2011, 1, 1), datetime.datetime(2011, 1, 1), scipy.array([10., 10.]).mean()),
-            ('#1', datetime.datetime(2011, 1, 2), datetime.datetime(2011, 1, 2), scipy.array([10., 10.]).mean()),
-            ('#2', datetime.datetime(2011, 1, 1), datetime.datetime(2011, 1, 1), scipy.array([20., 20.]).mean()),
-            ('#2', datetime.datetime(2011, 1, 2), datetime.datetime(2011, 1, 2), scipy.array([20., 20.]).mean()),
+            ('#1', datetime.datetime(2011, 1, 1), datetime.datetime(2011, 1, 1), np.array([10., 10.]).mean()),
+            ('#1', datetime.datetime(2011, 1, 2), datetime.datetime(2011, 1, 2), np.array([10., 10.]).mean()),
+            ('#2', datetime.datetime(2011, 1, 1), datetime.datetime(2011, 1, 1), np.array([20., 20.]).mean()),
+            ('#2', datetime.datetime(2011, 1, 2), datetime.datetime(2011, 1, 2), np.array([20., 20.]).mean()),
         ])
 
     def test_simulate_future_prices_two_markets_high_volatility_zero_correlation(self):
@@ -252,7 +252,7 @@ class TestCalibrateBlackScholesPriceProcess(unittest.TestCase):
         self.assertEqual(rho.shape, (2, 2))
         self.assertEqual(list(rho.flat), [1, -1, -1, 1])
 
-        scipy.random.seed(12345)
+        np.random.seed(12345)
         a = list(randn(20000).flat)
         b = list(randn(20000).flat)
         c = list(randn(20000).flat)

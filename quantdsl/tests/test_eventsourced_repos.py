@@ -2,6 +2,7 @@ import datetime
 
 import scipy
 import six
+import numpy as np
 
 from quantdsl.domain.model.call_dependencies import CallDependencies
 from quantdsl.domain.model.call_dependents import CallDependents
@@ -106,7 +107,7 @@ class TestEventSourcedRepos(ApplicationTestCase):
 
     def test_register_simulated_price(self):
         price_time = datetime.datetime(2011, 1, 1)
-        price_value = scipy.array([1.1, 1.2, 1.367345987359734598734598723459872345987235698237459862345])
+        price_value = np.array([1.1, 1.2, 1.367345987359734598734598723459872345987235698237459862345])
         simulation_id = create_uuid4()
         self.assertRaises(KeyError, self.app.simulated_price_repo.__getitem__, simulation_id)
 

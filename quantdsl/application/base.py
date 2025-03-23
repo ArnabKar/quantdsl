@@ -2,6 +2,7 @@ import datetime
 
 import six
 from eventsourcing.application.base import EventSourcingApplication
+# from eventsourcing.application import Application as EventSourcingApplication
 
 from quantdsl import DEFAULT_MAX_DEPENDENCY_GRAPH_SIZE
 from quantdsl.application.call_result_policy import CallResultPolicy

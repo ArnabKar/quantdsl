@@ -12,7 +12,9 @@ import scipy
 import scipy.linalg
 import six
 from dateutil.relativedelta import relativedelta
-from scipy import ndarray
+# from scipy import ndarray
+import numpy as np
+from numpy import ndarray
 
 from quantdsl.domain.model.simulated_price import make_simulated_price_id
 from quantdsl.domain.services.uuids import create_uuid4
@@ -577,10 +579,10 @@ class NonInfixedBinOp(BinOp):
             assert len(a) == len(b), msg
         elif aIsaNumber and (not bIsaNumber):
             # Todo: Optimise with scipy.zeros() when a equals zero?
-            a = scipy.array([a] * len(b))
+            a = np.array([a] * len(b))
         elif bIsaNumber and (not aIsaNumber):
             # Todo: Optimise with scipy.zeros() when b equals zero?
-            b = scipy.array([b] * len(a))
+            b = np.array([b] * len(a))
         return self.vector_op(a, b)
 
     @abstractmethod
@@ -594,7 +596,7 @@ class NonInfixedBinOp(BinOp):
 
 class Min(NonInfixedBinOp):
     def vector_op(self, a, b):
-        return scipy.array([a, b]).min(axis=0)
+        return np.array([a, b]).min(axis=0)
 
     def scalar_op(self, a, b):
         return min(a, b)
@@ -602,7 +604,7 @@ class Min(NonInfixedBinOp):
 
 class Max(NonInfixedBinOp):
     def vector_op(self, a, b):
-        return scipy.array([a, b]).max(axis=0)
+        return np.array([a, b]).max(axis=0)
 
     def scalar_op(self, a, b):
         return max(a, b)
@@ -1573,10 +1575,10 @@ class LongstaffSchwartz(object):
                         conditional_expected_value = expected_continuation_value
                     conditional_expected_values.append(conditional_expected_value)
 
-                conditional_expected_values = scipy.array(conditional_expected_values)
-                expected_continuation_values = scipy.array(expected_continuation_values)
+                conditional_expected_values = np.array(conditional_expected_values)
+                expected_continuation_values = np.array(expected_continuation_values)
                 argmax = conditional_expected_values.argmax(axis=0)
-                offsets = scipy.array(range(0, conditional_expected_values.shape[1])) * \
+                offsets = np.array(range(0, conditional_expected_values.shape[1])) * \
                           conditional_expected_values.shape[0]
                 indices = argmax + offsets
                 # assert indices.shape == underlying_value.shape
@@ -1592,7 +1594,8 @@ class LongstaffSchwartz(object):
                     path_count = kwds['path_count']
                     ones = scipy.ones(path_count)
                     state_value = ones * state_value
-                if not isinstance(state_value, scipy.ndarray):
+                # if not isinstance(state_value, scipy.ndarray):
+                if not isinstance(state_value, np.ndarray):
                     raise Exception("State value type is '%s' when scipy.ndarray is required: %s" % (
                         type(state_value), state_value))
             value_of_being_in[state] = state_value

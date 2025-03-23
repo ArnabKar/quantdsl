@@ -76,9 +76,12 @@ class DslParser(object):
         # Try to get_quantdsl_app the "visit" method object.
         try:
             method = getattr(self, method_name)
+
         except AttributeError:
             msg = "element '%s' is not supported (visit method '%s' not found on parser): %s" % (
                 dsl_element_name, method_name, node)
+            # import pdb; pdb.set_trace()
+            print(node)
             raise DslSyntaxError(msg)
 
         # Call the "visit" method object, and return the result of visiting the node.

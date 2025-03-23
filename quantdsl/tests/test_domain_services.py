@@ -7,6 +7,7 @@ from eventsourcing.infrastructure.event_store import EventStore
 from eventsourcing.infrastructure.persistence_subscriber import PersistenceSubscriber
 from eventsourcing.infrastructure.stored_events.python_objects_stored_events import PythonObjectsStoredEventRepository
 from mock import MagicMock, Mock, patch
+import numpy as np
 
 from quantdsl.defaults import DEFAULT_PRICE_PROCESS_NAME
 from quantdsl.domain.model.call_dependencies import CallDependencies, CallDependenciesRepository
@@ -234,8 +235,8 @@ class TestSimulatedPrices(unittest.TestCase):
     @patch('quantdsl.domain.services.simulated_prices.get_price_process', new=lambda name: Mock(
         spec=BlackScholesPriceProcess,
         simulate_future_prices=lambda observation_date, requirements, path_count, calibration_params: [
-            ('#1', datetime.date(2011, 1, 1), scipy.array([10.])),
-            ('#1', datetime.date(2011, 1, 2), scipy.array([10.])),
+            ('#1', datetime.date(2011, 1, 1), np.array([10.])),
+            ('#1', datetime.date(2011, 1, 2), np.array([10.])),
         ]
     ))
     def test_simulate_future_prices(self):
@@ -243,8 +244,8 @@ class TestSimulatedPrices(unittest.TestCase):
         mc = Mock(spec=MarketCalibration)
         prices = simulate_future_prices(market_simulation=ms, market_calibration=mc)
         self.assertEqual(list(prices), [
-            ('#1', datetime.date(2011, 1, 1), scipy.array([10.])),
-            ('#1', datetime.date(2011, 1, 2), scipy.array([10.])),
+            ('#1', datetime.date(2011, 1, 1), np.array([10.])),
+            ('#1', datetime.date(2011, 1, 2), np.array([10.])),
         ])
 
 

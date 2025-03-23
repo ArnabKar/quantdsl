@@ -3,7 +3,9 @@ from unittest.case import TestCase
 
 from dateutil.relativedelta import relativedelta
 from mock import Mock
-from scipy import array
+# from scipy import array
+from numpy import array
+
 
 from quantdsl.exceptions import DslNameError, DslSyntaxError, DslSystemError, DslPresentTimeNotInScope
 from quantdsl.semantics import Add, And, Date, Div, DslNamespace, DslObject, Max, Min, Mult, Name, Number, Or, \

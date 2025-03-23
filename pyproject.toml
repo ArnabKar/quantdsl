@@ -1,0 +1,27 @@
+[project]
+name = "quantdsl"
+version = "0.1.0"
+description = "Arnab gets quantdsl going."
+authors = [
+    {name = "Arnab Ka"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "mock (>=5.2.0,<6.0.0)",
+    "scipy (>=1.15.2,<2.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
+    "six (>=1.17.0,<2.0.0)",
+    "pytz (>=2025.1,<2026.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "pandas-datareader (>=0.10.0,<0.11.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "poetry-plugin-export (>=1.9.0,<2.0.0)",
+    "eventsourcing (==0.9.4)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

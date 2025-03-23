@@ -3,6 +3,7 @@ import unittest
 from copy import deepcopy
 
 import scipy
+import numpy as np
 from eventsourcing.domain.model.events import assert_event_handlers_empty
 
 from quantdsl.interfaces.results import Results
@@ -79,9 +80,11 @@ class ApplicationTestCase(unittest.TestCase):
 
         results = self.calc_contract_value(source_code, is_double_sided_deltas, periodisation)
 
+        
         # Check the results.
         if expected_value is not None:
             actual_value = results.fair_value_mean
+            print(f"Expected val: {expected_value}, actual value: {results.fair_value_mean}")
             if isinstance(actual_value, float):
                 self.assertAlmostEqual(actual_value, expected_value, places=2)
             else:
@@ -106,7 +109,7 @@ class ApplicationTestCase(unittest.TestCase):
 
     def calc_contract_value(self, source_code, is_double_sided_deltas=True, periodisation=None):
         # Fix the seed.
-        scipy.random.seed(1354802735)
+        np.random.seed(1354802735)
 
         # Register the specification (creates call dependency graph).
         contract_specification = self.app.compile(source_code=source_code, observation_date=self.observation_date)
@@ -1601,6 +1604,7 @@ Swing(Date('2011-2-1'), Date('2011-5-1'), 30)
         self.assert_contract_value(specification, 10.00, {'NBP': 1.0}, expected_call_count=1, periodisation='alltime')
 
     def test_gas_storage_option(self):
+        # import pdb; pdb.set_trace()
         specification_tmpl = """
 def GasStorage(start, end, commodity_name, quantity, limit, step):
     if ((start < end) and (limit > 0)):
